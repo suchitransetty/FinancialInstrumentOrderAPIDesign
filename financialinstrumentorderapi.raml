@@ -1,0 +1,120 @@
+#%RAML 1.0
+title: FinancialInstrumentOrderAPI
+baseUri: http://localhost:8080/FIOrderapi/
+description: This API is mainly for record and caluculate the orders for each and every financial instrument.
+version: 1.0
+types:
+  order:
+    type: object
+    properties:
+      instrumentId:
+        type: integer
+        required: true
+      quantity:
+        type: integer
+        required: true
+      price:
+        type: integer
+        required: false
+      entryDate:
+        type: datetime
+        required: true
+  
+/admin:
+  patch:
+    description: To change the orderstatus of each financial instrument
+    queryParameters:
+      orderStatus:
+        type: string
+        required: true
+        description: order status of financial instrument
+      OrderBookId:
+        type: integer
+        description: unique id of financial instrument order book
+        required: true
+    responses:
+      204:
+        description: when the order is successfull
+        body:
+          application/json:
+            example: |
+             {
+               "status": {
+                  "responseStatus": "CREATED",
+                  "message" : "Status updated successfully"
+               }    
+             }              
+      409:
+        body:
+          application/json:
+            example: |
+              {
+                 "status": {
+                    "responseStatus": "CREATED",
+                    "message" : "conflict while updating status"
+                 }
+              }
+/getOrderByOrdBkId:
+  get:
+    description: get all order detalis for specific financail instrument by unique id
+    queryParameters:
+      orderBookId:
+        type: integer
+        required: true
+        description: unique id of financial instrument
+    responses:
+      200:
+        body:
+          application/json:
+            example: !include getOrderByOrdBkIdexample200.json
+      400:
+        body:
+          application/json:
+            example: |
+              {
+                 "status": {
+                      "responseStatus": "Bad Request",
+                      "message":"data fetch unsuccessful"
+                   },
+                   "data":[]
+              }
+/createOrder:
+  post:
+    description: Create Orders for the specific finanacial instrument
+    body:
+      application/json:
+        type: order
+        example: !include order.json
+    responses:
+          201:
+            body:
+              application/json:
+                example: |
+                  {
+                    "status": {
+                      "responseStatus": "CREATED",
+                      "message":"Order Created succefully"
+                    }
+                  }
+          400:
+            body:
+              application/json:
+                example: |
+                  {
+                     "status": {
+                        "responseStatus": "Bad Request",
+                        "message":"Order not created"
+                     }
+                  }
+
+
+                                                                                                                  
+
+                  
+              
+
+          
+
+                                                              
+
+              
