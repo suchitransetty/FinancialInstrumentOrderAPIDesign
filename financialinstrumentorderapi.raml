@@ -7,6 +7,9 @@ types:
   order:
     type: object
     properties:
+      orderId:
+        type: integer
+        required: false
       instrumentId:
         type: integer
         required: true
@@ -19,41 +22,128 @@ types:
       entryDate:
         type: datetime
         required: true
-  
-/admin:
-  patch:
-    description: To change the orderstatus of each financial instrument
-    queryParameters:
+  finaancialInstrument:
+    type: object
+    properties:
+      instrumentId:
+        type: integer
+        required: false
+      instrumentName:
+        type: string
+        required: true
+      activeOrderBookId:
+        type: integer  
+  orderBook:
+    type: object
+    properties:
+      orderBookId:
+        type : integer
+        required: false
+      instrumentId:
+        type: integer
+        required: true
+      orderBookStatus:
+        type: string
+        required: true
+      createdDate:
+        type: datetime
+        required: true
       orderStatus:
         type: string
         required: true
-        description: order status of financial instrument
-      OrderBookId:
-        type: integer
-        description: unique id of financial instrument order book
-        required: true
-    responses:
-      204:
-        description: when the order is successfull
-        body:
-          application/json:
-            example: |
-             {
-               "status": {
-                  "responseStatus": "CREATED",
-                  "message" : "Status updated successfully"
-               }    
-             }              
-      409:
-        body:
-          application/json:
-            example: |
-              {
-                 "status": {
+
+  
+/admin:
+  /updateOrderstatus:
+    patch:
+      description: To change the orderstatus of each financial instrument
+      queryParameters:
+        orderStatus:
+          type: string
+          required: true
+          description: order status of financial instrument
+        OrderBookId:
+          type: integer
+          description: unique id of financial instrument order book
+          required: true
+      responses:
+        204:
+          description: when the order is successfull
+          body:
+            application/json:
+              example: |
+                {
+                  "status": {
+                      "responseStatus": "CREATED",
+                      "message" : "Status updated successfully"
+                  }    
+                }           
+        409:
+          body:
+            application/json:
+              example: |
+                {
+                  "status": {
+                      "responseStatus": "Conflict",
+                      "message" : "Conflict while updating status"
+                  }
+                }
+  /createFinancialInstrument:
+    post:
+      description: To create a financial Instrumnet
+      body:
+        application/json:
+          type: finaancialInstrument
+          example: !include financialInstrument.json
+      responses:
+        201:
+          body:
+            application/json:
+              example: |
+                {
+                  "status": {
                     "responseStatus": "CREATED",
-                    "message" : "conflict while updating status"
-                 }
-              }
+                    "message":"Financial instrument is added succefully"
+                  }
+                }
+        400:
+          body:
+            application/json:
+              example: |
+                {
+                  "status": {
+                    "responseStatus": "Bad Request",
+                    "message":"financial Instrument not added"
+                  }
+                }
+  /createOrderBookId:
+    post:
+      description: creating order book for financial instrument
+      body:
+        application/json:
+          type: orderBook
+          example: !include orderBook.json
+      responses:
+        201:
+          body:
+            application/json:
+              example: |
+                {
+                  "status": {
+                    "responseStatus": "CREATED",
+                    "message":"Order Book is Created succefully"
+                    }
+                }
+        400:
+          body:
+            application/json:
+              example: |
+                {
+                  "status": {
+                    "responseStatus": "Bad Request",
+                    "message":"Order Book is not created"
+                  }
+                }        
 /getOrderByOrdBkId:
   get:
     description: get all order detalis for specific financail instrument by unique id
@@ -106,15 +196,79 @@ types:
                         "message":"Order not created"
                      }
                   }
+/executeOrder:
+  options:
+    queryParameters:
+      orderBookId:
+        type: integer
+        required: true
+        description: unique id of financial instrument
+      price:
+        type: integer
+        required: true
+        description: price for single quantity of financial instrument while execution
+      quantity:
+        type: integer
+        required: true
+        description: total FI for execution
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              {
+                "status": {
+                    "responseStatus": "Executed",
+                    "message":"execution successful"
+                  }
+              }
+      400:
+        body:
+          application/json:
+            example: |
+              {
+                "status": {
+                    "responseStatus": "Bad Request",
+                    "message":"execution unsuccessful"
+                  }
+              }
+/generateReport:
+  /{orderBookId}:
+    get:
+      queryParameters:
+        executionDate:
+          type: date-only
+          description: to search by date of execution
+      responses:
+            200:
+              body:
+                application/json:
+                  example: !include generateReport200.json
+            400:
+                body:
+                  application/json:
+                    example: |
+                      {
+                        "status": {
+                            "responseStatus": "Bad Request",
+                            "message":"execution unsuccessful"
+                          }
+                      }
+                    
+                                  
 
+                                
+              
+                        
+                                
+      
+                                        
+          
+                                
+                        
 
-                                                                                                                  
-
-                  
               
 
+                                  
           
 
-                                                              
-
-              
