@@ -1,0 +1,11 @@
+{
+  "status": {
+    "responseStatus": "COMPLETE",
+    "message":"data fetch successful"
+    },
+    "data":{
+      "instrumentId":125,
+      "instrumentName":"derivatives",
+      "entryDate":"2021-12-01T11:44:01+00:00"
+    }
+}

@@ -1,0 +1,19 @@
+{
+  "status": {
+    "responseStatus": "COMPLETE",
+    "message":"data fetch successful"
+    },
+    "data":[{
+      "orderBookId":124,
+      "instrumentId":134,
+      "orderBookStatus":"Created",
+      "orderStatus":"open",
+      "createdDate":"2021-12-08T11:44:01+00:00"
+    },{
+      "orderBookId":125,
+      "instrumentId":134,
+      "orderBookStatus":"Created",
+      "orderStatus":"open",
+      "createdDate":"2021-12-08T11:44:01+00:00"
+    }]
+}
