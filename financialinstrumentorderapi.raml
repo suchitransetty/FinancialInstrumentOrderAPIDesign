@@ -258,7 +258,7 @@ types:
                     "message":"execution unsuccessful"
                   }
               }
-/generateReport:
+/getOrderAttribute:
   get:
     queryParameters:
       executionDate:
@@ -274,7 +274,7 @@ types:
           200:
             body:
               application/json:
-                example: !include response/generateReport200.json
+                example: !include response/getOrderAttribute200.json
           400:
               body:
                 application/json:
@@ -314,7 +314,7 @@ types:
         400:
           body:
             application/json:
-              example:
+              example: |
                  {
                   "status": {
                       "responseStatus": "Bad Request",
@@ -360,7 +360,35 @@ types:
                       "responseStatus": "Bad Request",
                       "message":"fetch unsuccessful"
                     }
-                  }                  
+                  }
+/generateStatistics:
+  get:
+    description: get the statics of specific order book
+    queryParameters:
+      orderBookId: 
+        type: integer
+        required: true
+        description: unique id of OrderBook
+    responses:
+          200:
+            body:
+              application/json:
+                example: !include response/generateStatistics200.json
+          400:
+            body:
+              application/json:
+                example:  |
+                   {
+                    "status": {
+                        "responseStatus": "Bad Request",
+                        "message":"execution unsuccessful"
+                      }
+                   }
+
+                                  
+
+                                      
+
 
                   
                       

@@ -7,6 +7,7 @@
       "orderid":126,
       "instrumentId":124,
       "allocatedQuantity":10,
+      "orderPrice":100,
       "executionPrice":50,
       "executionDate":null,
       "orderVaildtion":true
@@ -14,6 +15,7 @@
       "orderid":127,
       "instrumentId":124,
       "allocatedQuantity":15,
+      "orderPrice":100,
       "executionPrice":50,
       "executionDate":null,
       "orderVaildtion":true

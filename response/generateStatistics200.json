@@ -1,0 +1,17 @@
+{
+  "status": {
+    "responseStatus": "COMPLETE",
+    "message":"data fetch successful"
+    },
+    "data":{
+      "orderBookId":124,
+      "instrumentId":134,
+      "validOrderAmount": 16,
+      "invalidOrderAmount":5,
+      "biggestOrder":5000,
+      "smallestOrder":10,
+      "earliestOrderEntry":"2021-11-01T11:44:01+00:00",
+      "lastOrderEntry":"2021-12-01T11:44:01+00:00",
+      "limitBreakDown":0.7143
+    }
+}
